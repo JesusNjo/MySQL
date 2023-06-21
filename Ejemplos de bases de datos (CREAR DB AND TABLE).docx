@@ -1,0 +1,35 @@
+create database usuarios; -- crear base de datos
+
+show databases; -- mostrar bases de datos
+use usuarios; -- utilizar la base de datos seleccionada
+create table animales( -- crear tabla
+id INT, -- crear un id de tipo entero
+tipo varchar(255),  -- crear un valor de tipo String
+estado varchar(255), -- crear otro valor de tipo String
+PRIMARY KEY(id) -- Asignar como llave primaria al ID
+);
+
+
+--------
+INSERT INTO animales(); PARA INSERTAR DATOS EN LA TABLA ANIMALES
+--------
+INSERT INTO animales(tipo,estado) VALUES('Perro','Feliz') INDICAMOS LOS TIPOS DE DATOS QUE AGREGAREMOS Y CON EL VALUES LE DAMOS LOS DATOS....Sin embargo esto dará error porque no se ha creado el auto cremento del ID
+----------
+Para modificar y agregar el incremento o modificar cualquier valor se utiliza la palabra ALTER
+------------
+ALTER TABLE animales MODIFY COLUMN id int auto_increment; -- DE ESTA MANERA AGREGAMOS VALORES A UNA COLUMNA
+------------
+SELECT * FROM animales; -- DE ESTA MANERA CONSULTAMOS UNA TABLA CON TODOS SUS DATOS -- CON ESTO OBTENEMOS EL COMANDO QUE SE UTILIZA PARA CREAR ESTA TABLA
+
+NOS DA ESTE RESULADO: 
+
+'CREATE TABLE `animales` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(255) DEFAULT NULL,
+  `estado` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+
+); todo lo que viene despues de aca de elimina-----> 
+ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+-- <-SE UTILIZA PARA HACER COMENTARIOS

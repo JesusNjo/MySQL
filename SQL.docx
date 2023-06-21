@@ -1,0 +1,18 @@
+create database usuarios;  -- CREAR BASE DE DATOS
+
+show databases;  -- CONSULTAR TODAS LAS BASES DE DATOS
+
+create table (NOMBRE DE LA TABLA)(nombre de las columnas y propiedades); 
+
+TIPOS DE DATOS: (INT,FLOAT,VARCHAR)
+
+Delete
+
+INSERT INTO FROM (NOMBREDELATABLA) -- CREAR DATOS PARA UNA TABLA
+
+SELECT FROM (NOMBREDELATABLA) WHERE (PARTEDELATABLA) 3;
+
+
+COUNT(*)
+
+Order by -> Para ordenar (asc) o (desc)
