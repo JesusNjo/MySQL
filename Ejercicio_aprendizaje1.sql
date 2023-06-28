@@ -1,7 +1,7 @@
 SELECT * FROM personal.empleados;
 
 
-
+use personal;
 SELECT * FROM empleados; -- Obtener los datos completos de los empleados. 
 SELECT * FROM departamentos; -- Obtener los datos completos de los departamentos.
 SELECT nombre_depto from departamentos; -- Listar el nombre de los departamentos.
@@ -20,9 +20,20 @@ SELECT sal_emp,comision_emp,(sal_emp+comision_emp) as salarioTotal,nombre from e
 SELECT sal_emp,comision_emp from empleados where sal_emp<comision_emp;-- Obtener la lista de los empleados que ganan una comisión superior a su sueldo.
 SELECT comision_emp from empleados where comision_emp < (sal_emp*0.30); -- Listar los empleados cuya comisión es menor o igual que el 30% de su sueldo.
 SELECT * from empleados where nombre not like 'MA%';-- Hallar los empleados cuyo nombre no contiene la cadena “MA”
+
 SELECT * from empleados where cargo_emp like 'vendedor' or cargo_emp like 'investigador' or cargo_emp like 'mecanico' order by cargo_emp asc;-- Obtener los nombres de los departamentos que sean “Ventas”, “Investigación” o ‘Mantenimiento.
+select nombre_depto from departamentos where nombre_depto not in ("Ventas","Investigación","Mantenimiento");
+
 SELECT * from empleados where cargo_emp NOT like 'vendedor' AND cargo_emp NOT like 'investigador' AND cargo_emp NOT like 'mecanico' order by cargo_emp asc;-- Ahora obtener el contrario, los nombres de los departamentos que no sean “Ventas” ni “Investigación” ni ‘Mantenimiento.
-SELECT max(sal_emp) from empleados;-- Mostrar el salario más alto de la empresa.
+SELECT max(sal_emp) from empleados;-- Mostrar el  salario más alto de la empresa.
+SELECT * FROM empleados WHERE sal_emp = (SELECT MAX(sal_emp) from empleados);
 SELECT * FROM empleados ORDER BY nombre DESC LIMIT 1; -- Mostrar el nombre del último empleado de la lista por orden alfabético.
+
 SELECT max(sal_emp) as salarioMax,min(sal_emp) as salarioMin, max(sal_emp) - min(sal_emp) as diferencia from empleados; -- Hallar el salario más alto, el más bajo y la diferencia entre ellos.
-SELECT d.nombre_depto,AVG(e.sal_emp) as salarioPromedio from departamentos d JOIN empleados e ON d.id_depto = e.id_depto group by d.nombre_depto -- Hallar el salario promedio por departamento.
+SELECT d.nombre_depto, round(AVG(e.sal_emp)) as salarioPromedio from departamentos d JOIN empleados e ON d.id_depto = e.id_depto group by d.nombre_depto; -- Hallar el salario promedio por departamento.
+SELECT COUNT(id_depto),cargo_emp from empleados group by cargo_emp having count(id_depto) >3;-- Hallar los departamentos que tienen más de tres empleados. Mostrar el número de empleados de esos departamentos.
+SELECT COUNT(id_depto),cargo_emp from empleados group by cargo_emp having count(id_depto) =null;-- Hallar los departamentos que no tienen empleados
+SELECT e.nombre,d.nombre_jefe_depto from empleados e inner join departamentos d on e.id_depto = d.id_depto; -- Mostrar la lista de empleados, con su respectivo departamento y el jefe de cada departamento.
+select nombre, empleados.id_depto,nombre_jefe_depto from empleados inner join departamentos on empleados.id_depto = departamentos.id_depto;
+
+SELECT nombre,sal_emp,id_depto from empleados e where e.sal_emp >= (select avg(sal_emp) from empleados) order by e.id_depto;-- Mostrar la lista de los empleados cuyo salario es mayor o igual que el promedio de la empresa. Ordenarlo por departamento.
