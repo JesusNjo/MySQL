@@ -30,6 +30,9 @@ SELECT * from fabricante f left join producto p on f.codigo = p.codigo_fabricant
 SELECT * from producto where codigo_fabricante in(select codigo from fabricante where nombre like 'Lenovo');-- 25. Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN).
 SELECT * from producto p inner join fabricante f on p.codigo_fabricante = f.codigo where f.nombre like 'Lenovo' order by p.precio desc limit 1; -- 26. Lista el nombre del producto más caro del fabricante Lenovo.
 SELECT p.nombre,max(p.precio),f.nombre from producto p inner join fabricante f on p.codigo_fabricante = f.codigo where f.nombre like 'Lenovo';
+SELECT * from producto where precio=(select max(precio) from producto where codigo_fabricante=(Select codigo from fabricante where nombre = 'Lenovo')); -- Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin utilizar INNER JOIN).
+
+SELECT nombre,max(precio) from producto where (select codigo from fabricante where nombre = 'Lenovo');
 SELECT * from producto p where codigo_fabricante in(select codigo from fabricante where nombre like 'ASUS') and p.precio > (SELECT avg(precio) from producto);-- 27. Lista todos los productos del fabricante Asus que tienen un precio superior al precio medio de todos sus productos.
 SELECT f.nombre from fabricante f left join producto p on f.codigo = p.codigo_fabricante where f.nombre not in(SELECT f.nombre from fabricante f left join producto p on f.codigo = p.codigo_fabricante where p.codigo_fabricante is null);-- 28. Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando IN o NOT IN).
 SELECT f.nombre from fabricante f left join producto p on f.codigo = p.codigo_fabricante where p.codigo_fabricante is null;
